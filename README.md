@@ -1,0 +1,1 @@
+This Repository contains directories with solutions and content covered in backend storages, e.g., MySQL.
