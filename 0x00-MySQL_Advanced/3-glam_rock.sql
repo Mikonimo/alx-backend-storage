@@ -5,10 +5,9 @@
 -- You should use attributes formed and split for computing the lifespan
 -- The script can be executed on any database
 
-SELECT band_name,
-       IFNULL(split, 2022) - formed as lifespan
-FROM
-    (SELECT name as band_name, formed, split
-     FROM metal_bands
-     WHERE FIND_IN_SET('Glam rock', IFNULL(style, '')) > 0) AS subquery
+SELECT
+    band_name,
+    IFNULL(2022 - formed, 0) as lifespan
+FROM metal_bands
+WHERE UPPER(style) LIKE '%GLAM ROCK%'
 ORDER BY lifespan DESC;
