@@ -6,9 +6,14 @@
 -- The script can be executed on any database
 
 SELECT
-    name as band_name,
-    IFNULL(split, 2022) - formed as lifespan
+    band_name,
+    IFNULL(
+            CASE
+                WHEN split IS NULL THEN split - formed
+                ELSE 2022 - formed
+            END,
+            0
+    ) as lifespan
 FROM metal_bands
-WHERE style LIKE '%Glam rock%'
-    OR style LIKE '%Glam Rock%'
+WHERE FIND_IN_SET('Glam rock', style)
 ORDER BY lifespan DESC;
